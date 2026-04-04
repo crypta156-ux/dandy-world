@@ -1,0 +1,181 @@
+<!-- Dandy World — Математика для Софии -->
+<!-- Для запуска: открой index.html в браузере -->
+<!-- Или залей на GitHub Pages / Cloudflare Pages -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#1a1040">
+  <title>Dandy World — Математика для Софии</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======================== -->
+  <!-- Фоновые декоративные пятна -->
+  <!-- ======================== -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Контейнер конфетти -->
+  <div class="confetti-container" id="confetti-container"></div>
+
+  <!-- ======================================== -->
+  <!-- ЭКРАН 1: ГЛАВНОЕ МЕНЮ                    -->
+  <!-- ======================================== -->
+  <div class="screen active" id="menu-screen">
+    <div class="menu-wrapper">
+      <div class="menu-globe">🌍</div>
+      <h1 class="menu-title">Dandy World</h1>
+      <p class="menu-subtitle">Математика для Софии</p>
+
+      <div class="menu-input-group">
+        <label class="menu-label" for="player-name">Как тебя зовут?</label>
+        <input
+          type="text"
+          id="player-name"
+          class="menu-input"
+          value="София"
+          maxlength="20"
+          autocomplete="off"
+        >
+      </div>
+
+      <button class="btn btn-start" id="btn-start">
+        <span>Начать приключение!</span>
+        <span class="btn-emoji">🚀</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================== -->
+  <!-- ЭКРАН 2: КАРТА МИРА                      -->
+  <!-- ======================================== -->
+  <div class="screen" id="map-screen">
+    <!-- Шапка -->
+    <div class="map-header">
+      <div class="map-header-left">
+        <span class="player-avatar">🧑‍🚀</span>
+        <span class="player-name-display" id="player-name-display">София</span>
+      </div>
+      <div class="map-header-center">
+        <span class="map-logo">Dandy World</span>
+      </div>
+      <div class="map-header-right">
+        <span class="coins-display">⭐ <span id="coins-display">0</span></span>
+      </div>
+    </div>
+
+    <!-- Сетка зон 3×3 -->
+    <div class="zone-grid" id="zone-grid">
+      <!-- Заполняется из JS -->
+    </div>
+
+    <!-- Кнопка итоговой оценки -->
+    <div class="final-btn-wrapper" id="final-btn-wrapper" style="display:none;">
+      <button class="btn btn-final" id="btn-final">
+        📊 Итоговая оценка
+      </button>
+    </div>
+
+    <!-- Кнопка сброса прогресса -->
+    <button class="btn-reset-progress" id="btn-reset-progress">🔄 Сброс</button>
+  </div>
+
+  <!-- ======================================== -->
+  <!-- ЭКРАН 3: ЗАДАНИЕ                         -->
+  <!-- ======================================== -->
+  <div class="screen" id="task-screen">
+    <!-- Шапка задания -->
+    <div class="task-header">
+      <button class="btn-back" id="btn-back-to-map">←</button>
+      <div class="task-progress-bar">
+        <div class="task-progress-fill" id="task-progress-fill"></div>
+      </div>
+      <span class="task-counter" id="task-counter">1/8</span>
+    </div>
+
+    <!-- Персонаж -->
+    <div class="character-block" id="character-block">
+      <div class="character-emoji" id="task-char-emoji">🦊</div>
+      <div class="character-speech-bubble">
+        <p class="character-speech" id="task-char-speech">Привет! Давай решим!</p>
+      </div>
+    </div>
+
+    <!-- Карточка задания -->
+    <div class="task-card" id="task-card">
+      <p class="task-question" id="task-question">Вопрос</p>
+
+      <!-- Область ответа: заполняется динамически -->
+      <div class="answer-area" id="answer-area"></div>
+
+      <!-- Подсказка -->
+      <button class="btn-hint" id="btn-hint">💡 Подсказка</button>
+      <div class="hint-box" id="hint-box"></div>
+    </div>
+  </div>
+
+  <!-- ======================================== -->
+  <!-- ЭКРАН 4: РЕЗУЛЬТАТ ЗОНЫ                  -->
+  <!-- ======================================== -->
+  <div class="screen" id="result-screen">
+    <div class="result-card">
+      <div class="result-char-emoji" id="result-char-emoji">🦊</div>
+
+      <div class="result-grade" id="result-grade">5</div>
+      <div class="result-word" id="result-word">Отлично ⭐</div>
+
+      <div class="result-stars" id="result-stars">
+        <span class="result-star" style="--i:0">☆</span>
+        <span class="result-star" style="--i:1">☆</span>
+        <span class="result-star" style="--i:2">☆</span>
+      </div>
+
+      <div class="result-stats" id="result-stats">Правильно: 7 из 8</div>
+      <div class="result-coins" id="result-coins">+15 ⭐</div>
+
+      <div class="result-actions">
+        <button class="btn btn-retry" id="btn-retry">🔄 Пройти заново</button>
+        <button class="btn btn-to-map" id="btn-to-map">🗺️ К карте</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================== -->
+  <!-- ЭКРАН 5: ИТОГОВАЯ ОЦЕНКА                 -->
+  <!-- ======================================== -->
+  <div class="screen" id="final-screen">
+    <div class="final-card">
+      <h2 class="final-title">📊 Итоговая оценка</h2>
+
+      <div class="final-zones" id="final-zones">
+        <!-- Заполняется из JS -->
+      </div>
+
+      <div class="final-average-block">
+        <span class="final-average-label">Средняя оценка:</span>
+        <span class="final-average-value" id="final-average">—</span>
+      </div>
+
+      <div class="final-verdict" id="final-verdict"></div>
+
+      <div class="final-actions">
+        <button class="btn btn-to-map" id="btn-final-to-map">🗺️ К карте</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Скрипты -->
+  <script src="js/questions.js"></script>
+  <script src="js/characters.js"></script>
+  <script src="js/game.js"></script>
+
+</body>
+</html>

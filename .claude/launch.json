@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dandy-world",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "F:/Dendy world/dandy-world", "-l", "3456", "--no-clipboard"],
+      "port": 3456
+    }
+  ]
+}
